@@ -1,4 +1,4 @@
-function PlanCard({ plan, isCurrent, onSelect, onDeactivate }) {
+function PlanCard({ plan, isCurrent, onSelect, busy }) {
   return (
     <div className={`plan-card${isCurrent ? ' featured-plan' : ''}`}>
       {isCurrent && <div className="featured-badge">Current Plan</div>}
@@ -21,16 +21,16 @@ function PlanCard({ plan, isCurrent, onSelect, onDeactivate }) {
       </ul>
 
       {isCurrent ? (
-        <div className="plan-btn-group">
-          <button type="button" className="btn-plan-active">
-            Active Plan
-          </button>
-          <button type="button" className="btn-plan-deactivate" onClick={onDeactivate}>
-            Deactivate Plan
-          </button>
-        </div>
+        <button type="button" className="btn-plan-active" disabled>
+          Active Plan
+        </button>
       ) : (
-        <button type="button" className="btn-plan-action" onClick={() => onSelect(plan.id)}>
+        <button
+          type="button"
+          className="btn-plan-action"
+          disabled={busy}
+          onClick={() => onSelect(plan.id).catch(() => {})}
+        >
           Select Plan
         </button>
       )}
@@ -38,7 +38,7 @@ function PlanCard({ plan, isCurrent, onSelect, onDeactivate }) {
   );
 }
 
-export default function PricingPlans({ plans, currentPlanId, onSelect, onDeactivate }) {
+export default function PricingPlans({ plans, currentPlanId, onSelect, busy }) {
   return (
     <section className="pricing-panel">
       <div className="pricing-header-center">
@@ -55,7 +55,7 @@ export default function PricingPlans({ plans, currentPlanId, onSelect, onDeactiv
             plan={plan}
             isCurrent={plan.id === currentPlanId}
             onSelect={onSelect}
-            onDeactivate={onDeactivate}
+            busy={busy}
           />
         ))}
       </div>

@@ -1,6 +1,13 @@
 import { RefreshIcon, DownloadIcon } from './Icons.jsx';
 
-export default function PageHeader({ userName, hasActivePlan, refreshing, onRefresh, onExport }) {
+export default function PageHeader({
+  userName,
+  hasActivePlan,
+  refreshing,
+  onRefresh,
+  onExport,
+  onSignOut,
+}) {
   return (
     <section className="page-header">
       <div className="header-left">
@@ -22,6 +29,9 @@ export default function PageHeader({ userName, hasActivePlan, refreshing, onRefr
         <button type="button" className="btn-export" onClick={onExport}>
           <DownloadIcon />
           Export
+        </button>
+        <button type="button" className="btn-signout" onClick={onSignOut}>
+          Sign out
         </button>
       </div>
     </section>
