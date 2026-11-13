@@ -1,7 +1,7 @@
 export default function BillingHistory({ history }) {
   const stats = [
     { label: 'Total Paid', value: history.totalPaid },
-    { label: 'Total Invoiced', value: history.totalInvoiced },
+    { label: 'Total Invoices', value: history.totalInvoiced },
     { label: 'Outstanding Amount', value: history.outstanding },
   ];
 
@@ -25,6 +25,23 @@ export default function BillingHistory({ history }) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="invoice-list">
+        <h4>Recent Invoices</h4>
+        {history.invoices.length ? (
+          history.invoices.slice(0, 6).map((invoice) => (
+            <div className="invoice-row" key={invoice.id}>
+              <div>
+                <strong>{invoice.period}</strong>
+                <span>{invoice.status}</span>
+              </div>
+              <strong>{invoice.amount}</strong>
+            </div>
+          ))
+        ) : (
+          <p className="invoice-empty">No invoices found.</p>
+        )}
       </div>
     </article>
   );
